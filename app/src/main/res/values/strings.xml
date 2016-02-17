@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">MarsRover</string>
+    <string name="label_sol">sol %d</string>
+</resources>

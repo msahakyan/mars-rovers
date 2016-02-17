@@ -1,0 +1,71 @@
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center_horizontal">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <!-- Thumbnail Image -->
+        <com.android.msahakyan.marsrover.view.FadeInNetworkImageView
+            android:id="@+id/photo_thumbnail"
+            android:layout_width="match_parent"
+            android:layout_height="180dp"
+            android:background="@color/colorPrimaryDark"
+            android:scaleType="centerCrop"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:alpha=".8"
+            android:background="@color/colorPrimaryDark"
+            android:orientation="horizontal"
+            android:paddingLeft="@dimen/padding_size_medium"
+            android:paddingRight="@dimen/padding_size_medium"
+            android:paddingTop="@dimen/padding_size_small">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/rover_thumbnail"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginBottom="@dimen/margin_size_small"
+                android:layout_marginEnd="@dimen/margin_size_medium"
+                android:layout_marginRight="@dimen/margin_size_medium"
+                android:alpha=".3"
+                android:background="@android:color/transparent"
+                android:src="@drawable/rover_opportunity"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_size_medium"
+                android:layout_marginStart="@dimen/margin_size_medium"
+                android:background="@color/colorPrimaryDark"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/rover_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:gravity="end"
+                    android:textColor="@color/text_color_primary"/>
+
+                <TextView
+                    android:id="@+id/sol"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:gravity="end"
+                    android:textColor="@color/text_color_primary"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</android.support.v7.widget.CardView>
