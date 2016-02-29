@@ -1,4 +1,4 @@
-package com.android.msahakyan.marsrover;
+package com.android.msahakyan.marsrover.util;
 
 import android.app.Activity;
 import android.content.Context;

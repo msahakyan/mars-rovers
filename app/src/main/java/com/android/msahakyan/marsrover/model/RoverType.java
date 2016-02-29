@@ -20,4 +20,13 @@ public enum RoverType {
         }
         throw new IllegalArgumentException("Rover with id[" + id + "] does not exists");
     }
+
+    public static RoverType getTypeByName(String name) {
+        for (RoverType rover : values()) {
+            if (rover.name().equalsIgnoreCase(name)) {
+                return rover;
+            }
+        }
+        return null;
+    }
 }

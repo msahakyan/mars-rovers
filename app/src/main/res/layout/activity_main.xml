@@ -17,8 +17,8 @@
         android:layout_centerInParent="true"
         android:visibility="visible"
         app:cpv_animAutostart="false"
-        app:cpv_thickness="2dp"
         app:cpv_color="@color/color_loading_spinner"
-        app:cpv_indeterminate="true"/>
+        app:cpv_indeterminate="true"
+        app:cpv_thickness="2dp"/>
 
 </RelativeLayout>

@@ -74,6 +74,11 @@ public class RoverDataAdapter extends RecyclerView.Adapter<RoverDataAdapter.Phot
         }
     }
 
+    public void clearData() {
+        mPhotoList.clear();
+        notifyDataSetChanged();
+    }
+
     @Override
     public int getItemCount() {
         return mPhotoList.size();

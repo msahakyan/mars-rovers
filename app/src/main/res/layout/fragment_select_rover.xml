@@ -1,0 +1,16 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/transparent"
+                android:paddingLeft="@dimen/margin_size_medium"
+                android:paddingRight="@dimen/margin_size_medium"
+                tools:context=".fragment.SelectRoverFragment">
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rover_list"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/select_rover_fragment_height"
+        android:layout_marginTop="@dimen/margin_size_large"/>
+
+</RelativeLayout>

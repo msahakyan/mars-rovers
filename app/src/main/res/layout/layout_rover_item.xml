@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    android:id="@+id/rover_content"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/margin_size_small"
+    android:background="@color/grey"
+    android:padding="@dimen/padding_size_small">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/rover_thumbnail"
+        android:layout_width="60dp"
+        android:layout_height="60dp"/>
+
+    <TextView
+        android:id="@+id/rover_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/rover_thumbnail"
+        android:paddingLeft="@dimen/padding_size_large"
+        android:text="@string/rover_curiosity"
+        android:textSize="@dimen/text_site_large"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:id="@+id/rover_landing_date"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/rover_name"
+        android:layout_toRightOf="@id/rover_thumbnail"
+        android:paddingLeft="@dimen/padding_size_large"
+        android:text="@string/landing_date"/>
+
+    <TextView
+        android:id="@+id/rover_last_date"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/rover_landing_date"
+        android:layout_toRightOf="@id/rover_thumbnail"
+        android:paddingLeft="@dimen/padding_size_large"
+        android:text="@string/last_date"/>
+
+</RelativeLayout>

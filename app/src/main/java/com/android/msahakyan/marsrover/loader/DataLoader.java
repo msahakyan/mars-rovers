@@ -2,7 +2,9 @@ package com.android.msahakyan.marsrover.loader;
 
 import android.content.Context;
 import android.support.v4.content.Loader;
+import android.util.Log;
 
+import com.android.msahakyan.marsrover.activity.MainActivity;
 import com.android.msahakyan.marsrover.application.AppController;
 import com.android.msahakyan.marsrover.model.NetworkRequest;
 import com.android.msahakyan.marsrover.net.NetworkRequestListener;
@@ -11,8 +13,6 @@ import com.android.volley.RequestQueue;
 import com.android.volley.VolleyError;
 
 import org.json.JSONObject;
-
-import timber.log.Timber;
 
 /**
  * @author msahakyan
@@ -36,23 +36,23 @@ public class DataLoader<D extends JSONObject> extends Loader<D> {
     protected void onStartLoading() {
         if (mCachedData != null) {
             // Deliver any previously loaded data immediately.
-            if (DEBUG) Timber.i("Delivering previously loaded data to the client...");
+            if (DEBUG) Log.i(TAG, "Delivering previously loaded data to the client...");
             deliverResult(mCachedData);
         }
 
         if (takeContentChanged()) {
-            if (DEBUG) Timber.i("#### A content change has been detected... so force load! ####");
+            if (DEBUG) Log.i(TAG, "#### A content change has been detected... so force load! ####");
             forceLoad();
         } else if (mCachedData == null) {
             // If the current data is null... then we should try to load new data
-            if (DEBUG) Timber.i("#### The current data is null... so force load! ####");
+            if (DEBUG) Log.i(TAG, "#### The current data is null... so force load! ####");
             forceLoad();
         }
     }
 
     @Override
     protected void onStopLoading() {
-        if (DEBUG) Timber.i("#### onStopLoading() called! ####");
+        if (DEBUG) Log.i(TAG, "#### onStopLoading() called! ####");
         if (isStarted()) {
             reset();
         }
@@ -61,7 +61,7 @@ public class DataLoader<D extends JSONObject> extends Loader<D> {
     @Override
     protected void onForceLoad() {
         super.onForceLoad();
-        if (DEBUG) Timber.i("#### forceLoad() called! ####");
+        if (DEBUG) Log.i(TAG, "#### forceLoad() called! ####");
         new NetworkUtilsImpl(TAG).executeNetworkRequest(mRequest.getMethod(), new StringBuilder(mRequest.getEndpoint()),
             mRequest.getUrlParams(), new NetworkRequestListener<JSONObject>() {
                 @Override
@@ -71,7 +71,8 @@ public class DataLoader<D extends JSONObject> extends Loader<D> {
 
                 @Override
                 public void onError(VolleyError error) {
-                    Timber.e(error, "Could not load data");
+                    Log.e(TAG, error != null ? error.toString() : "Could not force load");
+                    MainActivity.decreaseLoadingState();
                 }
             });
     }
@@ -79,7 +80,7 @@ public class DataLoader<D extends JSONObject> extends Loader<D> {
     @Override
     protected void onReset() {
         super.onReset();
-        if (DEBUG) Timber.i("#### onReset() called! ####");
+        if (DEBUG) Log.i(TAG, "#### onReset() called! ####");
 
         // Ensure the loader is stopped.
         onStopLoading();
@@ -96,7 +97,7 @@ public class DataLoader<D extends JSONObject> extends Loader<D> {
     @Override
     protected boolean onCancelLoad() {
         // The load has been canceled, so we should release the resources
-        if (DEBUG) Timber.i("#### onCanceled() called! ####");
+        if (DEBUG) Log.i(TAG, "#### onCanceled() called! ####");
         releaseResources(mCachedData);
 
         return super.onCancelLoad();
@@ -104,7 +105,7 @@ public class DataLoader<D extends JSONObject> extends Loader<D> {
 
     @Override
     public void deliverResult(D data) {
-        if (DEBUG) Timber.i("#### deliverResult() called! ####");
+        if (DEBUG) Log.i(TAG, "#### deliverResult() called! ####");
         if (isReset()) {
             if (data != null) {
                 releaseResources(data);
@@ -126,4 +127,6 @@ public class DataLoader<D extends JSONObject> extends Loader<D> {
     public void setNetworkRequest(NetworkRequest request) {
         mRequest = request;
     }
+
+
 }

@@ -11,6 +11,7 @@ import android.view.animation.AnimationSet;
 import android.widget.ImageView;
 
 import com.android.msahakyan.marsrover.R;
+import com.android.msahakyan.marsrover.service.RoverDataLoaderService;
 
 public class SplashScreenActivity extends AppCompatActivity {
 
@@ -33,6 +34,13 @@ public class SplashScreenActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
         mSplashImage = (ImageView) findViewById(R.id.splash_image);
+
+        startRoverDataLoaderService();
+    }
+
+    private void startRoverDataLoaderService() {
+        Intent intent = new Intent(this, RoverDataLoaderService.class);
+        startService(intent);
     }
 
     @Override
