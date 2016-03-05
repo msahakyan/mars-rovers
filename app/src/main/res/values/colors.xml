@@ -2,7 +2,8 @@
 <resources>
     <color name="colorPrimary">#424242</color>
     <color name="colorPrimaryDark">#212121</color>
-    <color name="colorAccent">#E0E0E0</color>
+    <color name="colorAccent">#7E587E</color>
+    <color name="colorAccentLight">#FFEEFF</color>
     <color name="color_loading_spinner">#886A08</color>
     <color name="text_color_primary">#52524B</color>
 
@@ -11,4 +12,6 @@
     <item name="grey" type="color">#555555</item>
     <item name="green" type="color">#4499CC00</item>
     <item name="darkgreen" type="color">#FF669900</item>
+    <color name="speed_dial_background">#AAEEEEEE</color>
+    <color name="lightgrey">#DEDEDE</color>
 </resources>

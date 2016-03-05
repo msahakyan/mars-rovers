@@ -1,7 +1,6 @@
 package com.android.msahakyan.marsrover.fragment;
 
 import android.app.Activity;
-import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -59,9 +58,8 @@ public class SelectRoverFragment extends DialogFragment {
         View root = inflater.inflate(R.layout.fragment_select_rover, container, false);
         ButterKnife.bind(this, root);
 
-        // Set background transparent
-        final Drawable colorDrawable = new ColorDrawable(Color.BLACK);
-        colorDrawable.setAlpha(170);
+        // Set background semi transparent
+        final Drawable colorDrawable = new ColorDrawable(getResources().getColor(R.color.speed_dial_background));
         getDialog().getWindow().setBackgroundDrawable(colorDrawable);
 
         // Set fragment title

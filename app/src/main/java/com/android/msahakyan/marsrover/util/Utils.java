@@ -10,11 +10,11 @@ public class Utils {
 
     public static int getRoverThumbId(String roverName) {
         if (RoverType.CURIOSITY.name().equalsIgnoreCase(roverName)) {
-            return R.drawable.rover_curiosity_icon;
+            return R.drawable.icon_curiosity;
         } else if (RoverType.SPIRIT.name().equalsIgnoreCase(roverName)) {
-            return R.drawable.rover_spirit_icon;
+            return R.drawable.icon_spirit;
         } else if (RoverType.OPPORTUNITY.name().equalsIgnoreCase(roverName)) {
-            return R.drawable.rover_opportunity_icon;
+            return R.drawable.icon_opportunity;
         } else {
             throw new IllegalArgumentException("Not supported rover type");
         }

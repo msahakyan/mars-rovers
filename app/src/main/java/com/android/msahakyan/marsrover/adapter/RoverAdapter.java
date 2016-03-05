@@ -23,7 +23,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
  * @author msahakyan
- *         <p/>
+ *         <p>
  *         Mars Rovers adapter
  */
 public class RoverAdapter extends RecyclerView.Adapter<RoverAdapter.RoverHolder> {

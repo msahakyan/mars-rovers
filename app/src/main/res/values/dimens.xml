@@ -15,7 +15,15 @@
     <dimen name="margin_size_extra_large">25dp</dimen>
 
     <dimen name="thumbnail_height">200dp</dimen>
+    <dimen name="text_site_small">8sp</dimen>
+    <dimen name="text_site_medium">10sp</dimen>
+    <dimen name="text_site_default">12sp</dimen>
     <dimen name="text_site_large">15sp</dimen>
     <dimen name="select_rover_fragment_height">270dp</dimen>
+
+    <dimen name="speed_dial_row_margin">16dp</dimen>
+    <dimen name="speed_dial_margin">-8dp</dimen>
+    <dimen name="fab_margin">15dp</dimen>
+    <dimen name="fab_margin_small">-8dp</dimen>
 
 </resources>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <TextView
+        android:id="@+id/view_action_label"
+        style="@style/MarsRover.Widget.TextView.SpeedDial"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginEnd="@dimen/fab_margin"
+        android:layout_marginRight="@dimen/fab_margin"
+        android:gravity="center"
+        android:padding="@dimen/padding_size_small"/>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/view_action_button"
+        style="@style/MarsRover.Widget.FloatingActionButton.SpeedDial"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+</merge>

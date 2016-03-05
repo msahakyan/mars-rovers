@@ -1,21 +1,26 @@
 package com.android.msahakyan.marsrover.adapter;
 
 import android.content.Context;
+import android.content.Intent;
+import android.os.Parcelable;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.android.msahakyan.marsrover.R;
+import com.android.msahakyan.marsrover.activity.DetailPagerActivity;
 import com.android.msahakyan.marsrover.application.AppController;
 import com.android.msahakyan.marsrover.model.Photo;
 import com.android.msahakyan.marsrover.model.RoverType;
+import com.android.msahakyan.marsrover.util.BundleKey;
 import com.android.msahakyan.marsrover.util.ItemClickListener;
 import com.android.msahakyan.marsrover.view.FadeInNetworkImageView;
 import com.android.volley.toolbox.ImageLoader;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
@@ -24,10 +29,12 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
  * @author msahakyan
- *         <p/>
+ *         <p>
  *         Mars Rover Photos adapter
  */
 public class RoverDataAdapter extends RecyclerView.Adapter<RoverDataAdapter.PhotosViewHolder> {
+
+    private static final String TAG = RoverDataAdapter.class.getSimpleName();
 
     private List<Photo> mPhotoList;
     private Context mContext;
@@ -54,11 +61,9 @@ public class RoverDataAdapter extends RecyclerView.Adapter<RoverDataAdapter.Phot
             holder.roverName.setText(photo.getRover().getName());
             holder.sol.setText(mContext.getString(R.string.label_sol, photo.getSol()));
         }
-        holder.setClickListener(new ItemClickListener() {
-            @Override
-            public void onClick(View view, int position) {
-                Toast.makeText(mContext, "Detail view not implemented yet", Toast.LENGTH_SHORT).show();
-            }
+        holder.setClickListener((view, position1) -> {
+            Log.d(TAG, "Sending photo list to detail pager activity");
+            ((ItemClickListener) mContext).onClick(view, position1);
         });
     }
 
@@ -70,7 +75,7 @@ public class RoverDataAdapter extends RecyclerView.Adapter<RoverDataAdapter.Phot
         } else if (RoverType.OPPORTUNITY.name().equalsIgnoreCase(roverName)) {
             return R.drawable.rover_opportunity_icon;
         } else {
-            throw new IllegalArgumentException("Not supported rover type");
+            throw new IllegalArgumentException("Unsupported rover type");
         }
     }
 

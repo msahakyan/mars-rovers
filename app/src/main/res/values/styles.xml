@@ -16,8 +16,26 @@
     </style>
 
     <style name="MarsRover.Widget.FloatingActionButton" parent="Widget.Design.FloatingActionButton">
-        <item name="backgroundTint">@android:color/white</item>
+        <item name="backgroundTint">@color/colorAccent</item>
         <item name="borderWidth">0dp</item>
+    </style>
+
+    <style name="MarsRover.Widget.FloatingActionButton.SpeedDial">
+        <item name="android:layout_marginRight">8dp</item>
+        <item name="fabSize">mini</item>
+    </style>
+
+    <style name="Translucent">
+        <item name="android:windowBackground">@color/speed_dial_background</item>
+    </style>
+
+    <style name="MarsRover.Widget.TextView" parent="@android:style/Widget.TextView"/>
+
+    <style name="MarsRover.Widget.TextView.SpeedDial">
+        <item name="android:textSize">@dimen/text_site_default</item>
+        <item name="android:paddingLeft">@dimen/padding_size_medium</item>
+        <item name="android:paddingRight">@dimen/padding_size_medium</item>
+        <item name="android:background">@drawable/background_rounded_corners</item>
     </style>
 
 </resources>

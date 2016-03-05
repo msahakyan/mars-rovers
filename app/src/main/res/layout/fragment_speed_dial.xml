@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:id="@+id/speed_dial_button_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentBottom="true"
+        android:clipChildren="false"
+        android:clipToPadding="false"
+        android:gravity="bottom"
+        android:paddingLeft="0dp"
+        android:paddingRight="@dimen/fab_margin">
+
+        <LinearLayout
+            android:id="@+id/item_container"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/close_action_button"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginBottom="@dimen/margin_size_medium"
+            android:orientation="vertical"/>
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@id/close_action_button"
+            style="@style/MarsRover.Widget.FloatingActionButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="@dimen/fab_margin"
+            android:layout_marginTop="@dimen/speed_dial_margin"
+            android:src="@drawable/ic_action_close"
+            app:fabSize="normal"/>
+    </RelativeLayout>
+</RelativeLayout>

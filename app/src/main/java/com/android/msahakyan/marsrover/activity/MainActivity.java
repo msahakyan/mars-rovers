@@ -1,6 +1,8 @@
 package com.android.msahakyan.marsrover.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
@@ -24,8 +26,14 @@ import com.android.msahakyan.marsrover.model.Rover;
 import com.android.msahakyan.marsrover.model.RoverType;
 import com.android.msahakyan.marsrover.net.NetHelper;
 import com.android.msahakyan.marsrover.net.parser.PhotoListParser;
+import com.android.msahakyan.marsrover.service.LoaderDataSource;
+import com.android.msahakyan.marsrover.speedDial.SpeedDialFragment;
+import com.android.msahakyan.marsrover.util.BundleKey;
+import com.android.msahakyan.marsrover.util.ItemClickListener;
+import com.android.msahakyan.marsrover.util.OnLoadErrorListener;
 import com.android.msahakyan.marsrover.util.OnRoverSelectedListener;
 import com.android.msahakyan.marsrover.util.PhotoItemDecorator;
+import com.android.volley.VolleyError;
 import com.github.rahatarmanahmed.cpv.CircularProgressView;
 import com.google.gson.Gson;
 
@@ -36,11 +44,14 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
-public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<JSONObject>, OnRoverSelectedListener {
+public class MainActivity extends AppCompatActivity implements
+    LoaderManager.LoaderCallbacks<JSONObject>, OnRoverSelectedListener, OnLoadErrorListener, ItemClickListener {
 
     private static final String TAG = MainActivity.class.getSimpleName();
     private static final boolean DEBUG = true;
+    private static final int REQUEST_DETAIL_CONTENT = 333;
 
     private LoaderStateManager mLoaderStateManager;
 
@@ -52,11 +63,11 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     protected RecyclerView mRecyclerView;
 
     @Bind(R.id.progress_view)
-    CircularProgressView mProgressView;
+    protected CircularProgressView mProgressView;
 
     private RoverDataAdapter mAdapter;
 
-    private static int mLoadingState = 0;
+    private int mLoadingState = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,7 +87,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
             }
         });
 
-        mAdapter = new RoverDataAdapter(MainActivity.this, mPhotos);
+        mAdapter = new RoverDataAdapter(this, mPhotos);
         mRecyclerView.setAdapter(mAdapter);
 
         // Set layout manager to recyclerView
@@ -135,6 +146,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         DataLoader dataLoader = (DataLoader) getSupportLoaderManager().getLoader(loaderId);
         dataLoader.setNetworkRequest(networkRequest);
         dataLoader.onContentChanged();
+        showProgressView(false);
         mLoadingState++;
     }
 
@@ -150,7 +162,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
             }
         }
 
-        return new DataLoader<>(getApplicationContext(), request);
+        return new DataLoader<>(getApplicationContext(), request, this);
     }
 
     @Override
@@ -234,6 +246,12 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         }
     }
 
+    @OnClick(R.id.fab_rovers)
+    @SuppressWarnings("unused")
+    void onActionButtonClick() {
+        SpeedDialFragment.show(getSupportFragmentManager(), LoaderDataSource.getInstance().getRoverList());
+    }
+
     @Override
     public void onRoverSelected(Rover rover) {
 
@@ -265,7 +283,69 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         return -1;
     }
 
-    public static void decreaseLoadingState() {
-        mLoadingState--;
+    private RoverType getRoverTypeByLoaderId(int loaderId) {
+        for (LoaderStateManager.LoaderState state : mLoaderStateManager.getLoaderStates()) {
+            if (state.getLoaderId() == loaderId) {
+                return state.getRoverType();
+            }
+        }
+        return null;
+    }
+
+    @Override
+    public void onLoadError(VolleyError error, int loaderId) {
+        if (error != null) {
+            mLoadingState--;
+            if (error.networkResponse != null) {
+                switch (error.networkResponse.statusCode) {
+                    case 400:
+                        if (mLoaderStateManager.getActiveLoaderIds().size() == 1) {
+                            hideProgressView();
+                            mSol++;
+                            // Notify loader manager that selected loader data has been changed
+                            notifyLoaderDataChanged(loaderId, getRoverTypeByLoaderId(loaderId));
+                        } else {
+                            Log.i(TAG, "Skip empty list of photos for Rover: " + getRoverTypeByLoaderId(loaderId) + " for sol: " + mSol);
+                        }
+                        break;
+                    // handle other errors here
+                    default:
+                        break;
+                }
+            }
+        }
+    }
+
+    @Override
+    public void onClick(View view, int position) {
+        startDetailPagerActivity(position);
+    }
+
+    private void startDetailPagerActivity(int position) {
+        List<Photo> photosToBeSend = new ArrayList<>(mPhotos.subList(position, mPhotos.size()));
+        Intent intent = new Intent(this, DetailPagerActivity.class);
+        intent.putExtra(BundleKey.EXTRA_START_POSITION, position);
+        intent.putParcelableArrayListExtra(BundleKey.EXTRA_PHOTOS_TO_BE_SEND, (ArrayList<? extends Parcelable>) photosToBeSend);
+        this.startActivityForResult(intent, REQUEST_DETAIL_CONTENT);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        switch (requestCode) {
+            case REQUEST_DETAIL_CONTENT:
+                if (resultCode == RESULT_OK) {
+                    int position = data.getIntExtra(BundleKey.EXTRA_POSITION, 0);
+                    if (mRecyclerView != null) {
+                        Log.d(TAG, "Scrolling recycler view to position: " + position);
+                        mRecyclerView.post(() -> mRecyclerView.smoothScrollToPosition(position));
+                    }
+                } else {
+                    Log.w(TAG, "Something was going wrong -- result code is not RESULT_OK");
+                }
+                break;
+            default:
+                super.onActivityResult(requestCode, resultCode, data);
+                break;
+        }
     }
 }

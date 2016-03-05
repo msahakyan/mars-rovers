@@ -4,11 +4,11 @@ import android.content.Context;
 import android.support.v4.content.Loader;
 import android.util.Log;
 
-import com.android.msahakyan.marsrover.activity.MainActivity;
 import com.android.msahakyan.marsrover.application.AppController;
 import com.android.msahakyan.marsrover.model.NetworkRequest;
 import com.android.msahakyan.marsrover.net.NetworkRequestListener;
 import com.android.msahakyan.marsrover.net.NetworkUtilsImpl;
+import com.android.msahakyan.marsrover.util.OnLoadErrorListener;
 import com.android.volley.RequestQueue;
 import com.android.volley.VolleyError;
 
@@ -25,10 +25,12 @@ public class DataLoader<D extends JSONObject> extends Loader<D> {
     private D mCachedData;
     private NetworkRequest mRequest;
     private RequestQueue mRequestQueue;
+    private OnLoadErrorListener mLoadErrorListener;
 
-    public DataLoader(Context context, NetworkRequest request) {
+    public DataLoader(Context context, NetworkRequest request, OnLoadErrorListener loadErrorListener) {
         super(context);
         mRequestQueue = AppController.getInstance().getRequestQueue();
+        mLoadErrorListener = loadErrorListener;
         mRequest = request;
     }
 
@@ -72,7 +74,7 @@ public class DataLoader<D extends JSONObject> extends Loader<D> {
                 @Override
                 public void onError(VolleyError error) {
                     Log.e(TAG, error != null ? error.toString() : "Could not force load");
-                    MainActivity.decreaseLoadingState();
+                    mLoadErrorListener.onLoadError(error, getId());
                 }
             });
     }
