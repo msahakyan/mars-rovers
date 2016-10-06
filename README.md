@@ -15,13 +15,19 @@ For loading purposes were used <b>Android Loaders</b> (executing multiple loader
 </p>
 
 # screenshots from app
-<img src="https://github.com/msahakyan/mars-rovers/blob/master/app/src/main/assets/splash_screen.png" width="240px" height="426px"></img>
+<div>
+<img style="float:left;" src="https://github.com/msahakyan/mars-rovers/blob/master/app/src/main/assets/splash_screen.png" width="240px" height="426px">
+<img style="float:left;" src="https://github.com/msahakyan/mars-rovers/blob/master/app/src/main/assets/rover_select_fragment.png" width="240px" height="426px">
+</div>
 <br/><br/>
 
-<img src="https://github.com/msahakyan/mars-rovers/blob/master/app/src/main/assets/rover_photos.png" width="240px" height="426px"></img>
+<div>
+<img style="float:left;" src="https://github.com/msahakyan/mars-rovers/blob/master/app/src/main/assets/rover_photos.png" width="240px" height="426px">
+<img src="https://github.com/msahakyan/mars-rovers/blob/master/app/src/main/assets/rover_photos_framed.png" width="240px" height="426px">
+</div>
 <br/><br/>
 
-<img src="https://github.com/msahakyan/mars-rovers/blob/master/app/src/main/assets/rover_select_fragment.png" width="240px" height="426px"></img>
-<br/><br/>
-
-<img src="https://github.com/msahakyan/mars-rovers/blob/master/app/src/main/assets/rover_detail.png" width="240px" height="426px"></img>
+<div>
+<img style="float:left;" src="https://github.com/msahakyan/mars-rovers/blob/master/app/src/main/assets/rover_detail.png" width="240px" height="426px">
+<img src="https://github.com/msahakyan/mars-rovers/blob/master/app/src/main/assets/rover_detail_framed.png" width="240px" height="426px">
+</div>
